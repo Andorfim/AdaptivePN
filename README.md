@@ -1,1 +1,1 @@
-# AdaptivePN
+# adaptive-pn
