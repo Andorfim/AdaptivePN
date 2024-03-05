@@ -36,7 +36,7 @@ class DepletionZone:
         self.charge = charge
 
 
-    def proceed(self, side: bool):
+    def proceed(self, side: bool, normalization_factor: float) -> int:
 
         def x_p(self, built_in_junction_voltage):
             return np.sqrt((2 * physical_constants["electric constant"] / self.charge) * (
@@ -56,7 +56,7 @@ class DepletionZone:
                                                            density_unperturbed_p_type=self.density_unperturbed_p_type)
 
         if side:
-            return x_p(self, built_in_junction_voltage=built_in_junction_voltage)
+            return int(x_p(self, built_in_junction_voltage=built_in_junction_voltage)/normalization_factor)
 
         else:
-            return x_n(self, built_in_junction_voltage=built_in_junction_voltage)
+            return int(x_n(self, built_in_junction_voltage=built_in_junction_voltage)/normalization_factor)

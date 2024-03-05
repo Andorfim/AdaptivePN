@@ -7,6 +7,8 @@
 Simple Model for Carrier Densities in the Depletion Region of p-n Junctions
 
 
+Подойдет для валидации
+
 
 '''
 
@@ -25,4 +27,3 @@ class BuiltInJunctionVoltage:
 
     def proceed(self):
         return (Boltzmann*self.temperature/self.charge)*np.log(self.density_unperturbed_n_type/self.density_unperturbed_p_type)
-
