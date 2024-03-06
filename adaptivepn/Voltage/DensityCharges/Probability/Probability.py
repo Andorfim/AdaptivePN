@@ -12,3 +12,31 @@ Donolato, C. (1994). Reciprocity theorem for charge collection by a surface with
 '''
 
 #TODO Фурье преобразование, ориентироваться на Moore
+
+import numpy as np
+from scipy.fftpack import fft, fftfreq
+
+
+class Probability:
+
+    def __init__(self, diffusion_length: float, relationship: float):
+
+        self.relationship = relationship
+        self.diffusion_length = diffusion_length
+
+
+    def proceed(self, x: float, y: float, accuracy: int):
+
+
+        k = np.linspace(0.1, 2 * np.pi, accuracy, endpoint=False)
+
+
+        under_integral_function = np.exp(-x*np.sqrt(k**2 + 1/(self.diffusion_length)**2)) * (
+                np.cos(k*y) + np.sin(k*y) * (self.relationship/k))/(k**2 + (self.relationship)**2)
+
+        fourier_transform = fft(under_integral_function)
+
+        N = len(fourier_transform)
+        dk = k[1] - k[0]
+
+        return fftfreq(N, dk)
