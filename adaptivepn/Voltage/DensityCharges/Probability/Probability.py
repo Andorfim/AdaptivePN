@@ -11,8 +11,6 @@ Donolato, C. (1994). Reciprocity theorem for charge collection by a surface with
 
 '''
 
-#TODO Фурье преобразование, ориентироваться на Moore
-
 import numpy as np
 from scipy.integrate import quad
 

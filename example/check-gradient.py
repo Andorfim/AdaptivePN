@@ -1,8 +1,7 @@
 from adaptivepn.Voltage.DensityCharges.Probability.Probability import Probability
+from adaptivepn.Voltage.DensityCharges.Steps.Steps import Steps
 import matplotlib.pyplot as plt
 import numpy as np
-
-
 
 
 x = np.linspace(-1e-6, 1e-6, 100)
@@ -38,6 +37,13 @@ for data in data_probability:
     data_probability_plot.append([data])
 
 data_probability = np.array(data_probability_plot)
+
+
+gradient_tool = Steps(probability=data_probability, data_x=data_x, data_y=data_y)
+
+
+data_probability, data_x, data_y = gradient_tool.proceed(quantity=20, epsilon=1e4)
+
 
 
 fig = plt.figure()
