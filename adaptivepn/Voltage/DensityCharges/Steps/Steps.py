@@ -56,7 +56,7 @@ class Steps:
 
             self.data_x[index] = 0
             self.data_y[index] = 0
-
+            self.probability[index] = 0
 
         list_indexes_delete = []
 
@@ -64,13 +64,13 @@ class Steps:
 
         for _ in range(quantity):
 
-            index = np.random.randint(0, len(self.probability))
+            index = np.random.randint(0, len(self.probability) - int(np.sqrt(len(self.probability))))
 
             if gradient(index=index) > epsilon:
 
                 while gradient(index) < epsilon:
 
-                    index = np.random.randint(0, len(self.probability))
+                    index = np.random.randint(0, len(self.probability) - int(np.sqrt(len(self.probability))))
 
                 list_indexes_delete.append(index)
 
@@ -84,7 +84,7 @@ class Steps:
         return [self.probability, self.data_x, self.data_y]
 
 # TODO подумать, как сделать, чтобы не занулять data_x(_y)
-# TODO подумать что делать при большом параметре quantity (также странно себя ведет функция probability c нулевыми значениями)
+# TODO подумать что делать при большом параметре quantity
 
 
 

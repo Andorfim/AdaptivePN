@@ -42,8 +42,7 @@ data_probability = np.array(data_probability_plot)
 gradient_tool = Steps(probability=data_probability, data_x=data_x, data_y=data_y)
 
 
-data_probability, data_x, data_y = gradient_tool.proceed(quantity=20, epsilon=1e4)
-
+data_probability, data_x, data_y = gradient_tool.proceed(quantity=300, epsilon=1e4)
 
 
 fig = plt.figure()
