@@ -48,6 +48,8 @@ class DensityCharges:
         # Замена квадрата intrinisic
         square = (self.intrinsic_density**2)
 
+        electrons_list = []
+        holes_list = []
 
 
         # Замена для формул; длина волны: 1550 нанометров
@@ -64,6 +66,9 @@ class DensityCharges:
 
                 holes = self.acceptor_density
 
+                electrons_list.append(electrons)
+                holes_list.append(holes)
+
                 density_charge.append(
 
                     self.donor_density - self.acceptor_density + holes - electrons
@@ -73,6 +78,9 @@ class DensityCharges:
                 # density_charge.append(a * electrons + b * (holes**0.8))
 
             elif x_i > self.indexes[0][1] and x_i < self.indexes[1][0]:
+
+                electrons_list.append(0)
+                holes_list.append(0)
 
 
                 density_charge.append(0)
@@ -89,10 +97,13 @@ class DensityCharges:
                     self.donor_density - self.acceptor_density + holes - electrons
                 )
 
+                electrons_list.append(electrons)
+                holes_list.append(holes)
 
 
 
 
-        return density_charge
+
+        return [density_charge, electrons_list, holes_list]
 
 
