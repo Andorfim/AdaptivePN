@@ -1,14 +1,7 @@
-'''
-
-Проверочный файл для наложения функции-плотности вероятности на pn-модель
-
-'''
-
-from adaptivepn.Voltage.DensityCharges.Probability.Probability import Probability
+from example.trash.Probability import Probability
+from adaptivepn.Voltage.Steps.Steps import Steps
 import matplotlib.pyplot as plt
 import numpy as np
-
-
 
 
 x = np.linspace(-1e-6, 1e-6, 100)
@@ -45,4 +38,25 @@ for data in data_probability:
 
 data_probability = np.array(data_probability_plot)
 
-#TODO сделать разными цветами по отношению к тому, насколько сильно увеличивается data_probability
+
+gradient_tool = Steps(probability=data_probability, data_x=data_x, data_y=data_y)
+
+
+data_probability, data_x, data_y = gradient_tool.proceed(quantity=1000, epsilon=1e4)
+
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+surf = ax.scatter(data_x, data_y, data_probability)
+
+
+
+
+ax.set_title('Поведение функции плотности вероятности носителей от положения в пространстве')
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('PROBABILITY')
+fig.colorbar(surf)
+
+
+plt.show()

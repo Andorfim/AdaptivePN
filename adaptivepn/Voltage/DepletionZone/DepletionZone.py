@@ -9,12 +9,12 @@ Simple Model for Carrier Densities in the Depletion Region of p-n Junctions
 
 '''
 import numpy as np
-from adaptivepn.Voltage.DepletionZone.BuiltInJunctionVoltage.BuiltInJunctionVoltage import BuiltInJunctionVoltage
-from scipy.constants import physical_constants
+from scipy.constants import physical_constants, Boltzmann, elementary_charge, epsilon_0
+
 
 class DepletionZone:
 
-    def __init__(self, temperature, density_unperturbed_n_type, density_unperturbed_p_type, applied_voltage, ionized_acceptor_density, ionized_donor_density, charge):
+    def __init__(self, temperature, applied_voltage, acceptor_density, donor_density, intrinsic_density):
         '''
 
         :param temperature: Температура среды
@@ -23,40 +23,40 @@ class DepletionZone:
         :param applied_voltage: приложенное напряжение
         :param ionized_acceptor_density: плотность ионизованных дырок
         :param ionized_donor_density: плотность ионизованных электронов
-        :param charge: заряд
+
 
         '''
 
         self.applied_voltage = applied_voltage
-        self.ionized_acceptor_density = ionized_acceptor_density
-        self.ionized_donor_density = ionized_donor_density
+        self.acceptor_density = acceptor_density
+        self.donor_density = donor_density
         self.temperature = temperature
-        self.density_unperturbed_n_type = density_unperturbed_n_type
-        self.density_unperturbed_p_type = density_unperturbed_p_type
-        self.charge = charge
+        self.intrinsic_density = intrinsic_density
 
 
-    def proceed(self, side: bool, normalization_factor: float) -> int:
+    def proceed(self):
 
-        def x_p(self, built_in_junction_voltage):
-            return np.sqrt((2 * physical_constants["electric constant"] / self.charge) * (
-                        built_in_junction_voltage - self.applied_voltage) * self.ionized_acceptor_density / (
-                                       self.ionized_donor_density * (
-                                           self.ionized_donor_density + self.ionized_acceptor_density)))
+        def x_p(depletion_width):
+            return -1*depletion_width/(1 + self.acceptor_density/self.donor_density)
 
-        def x_n(self, built_in_junction_voltage):
-            return np.sqrt((2 * physical_constants["electric constant"] / self.charge) * (
-                        built_in_junction_voltage - self.applied_voltage) * self.ionized_donor_density / (
-                                       self.ionized_acceptor_density * (
-                                           self.ionized_donor_density + self.ionized_acceptor_density)))
+        def x_n(depletion_width):
+            return depletion_width / (1 + self.donor_density / self.acceptor_density)
 
-        built_in_junction_voltage = BuiltInJunctionVoltage(temperature=self.temperature,
-                                                           charge=self.charge,
-                                                           density_unperturbed_n_type=self.density_unperturbed_n_type,
-                                                           density_unperturbed_p_type=self.density_unperturbed_p_type)
 
-        if side:
-            return int(x_p(self, built_in_junction_voltage=built_in_junction_voltage)/normalization_factor)
+        built_in_junction_voltage = (Boltzmann*self.temperature/elementary_charge)*np.log(((self.donor_density*self.acceptor_density)/(self.intrinsic_density**2)))
 
-        else:
-            return int(x_n(self, built_in_junction_voltage=built_in_junction_voltage)/normalization_factor)
+
+
+        #relative permittivity = 3.9 для кремния
+
+
+        depletion_width = np.sqrt((2 * 3.9 * epsilon_0 ) * (
+                        self.applied_voltage - built_in_junction_voltage) * (self.donor_density + self.acceptor_density)/(
+                self.donor_density*self.acceptor_density
+            ))
+
+
+        return [x_p(depletion_width), x_n(depletion_width)]
+
+
+

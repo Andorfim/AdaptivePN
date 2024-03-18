@@ -10,7 +10,6 @@
 Основная идея: на основе гладкости градиента делать решение уменьшать/оставлять/увеличивать количество узлов
 
 '''
-from adaptivepn.Voltage.DensityCharges.Probability.Probability import Probability
 import numpy as np
 
 # Попробовать уменьшать узлы до определенной ошибки
