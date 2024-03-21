@@ -7,10 +7,9 @@ from adaptivepn.Voltage.DeltaRefractive.DeltaRefractive import DeltaRefractive
 
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.constants import hbar, Boltzmann
 
 # Инициализирую необходимые параметры
-N = 100000 # Количество точек
+N = 10000 # Количество точек
 # #TODO проблема с подгоном, так как шаг выше чем координата границы зоны истощения
 
 x = np.linspace(-1*2e-6, 2e-6, N)
@@ -18,26 +17,11 @@ step = (np.max(x)-np.min(x))/(N-1)
 
 
 
-# y = []
-
-# for i in range(N-1):
-#
-#     if i >= (2e-6-0.5e-6)/step and i <= (2e-6 + 0.5e-6)/step:
-#         y.append(300e-6)
-#     else:
-#         y.append(150e-6)
-
-
-
-
-
-
-
-temperature = 300 #В кельвинах
+temperature = 270 #В кельвинах
 intrinsic_density = 5.29e25 * ((temperature/300)**2.54)*np.exp(-6726/temperature) # 9.7e15
-acceptor_density = 1e21
-donor_density = 1e22
-applied_voltage = 0.65639
+acceptor_density = 6e15
+donor_density = 2.5e7
+applied_voltage = 1e-4
 
 
 depletion_tool = DepletionZone(
@@ -68,29 +52,11 @@ print('density_charges_tool has gave result')
 density_charges = density_charges_result[0]
 
 
-
-density_norm = []
-
-max_min = np.max(density_charges) - np.min(density_charges)
-
-min_on_max = np.min(density_charges)/max_min
-
-for density in density_charges:
-    density_norm.append(
-
-        density/max_min - min_on_max
-
-    )
-
-
-
-
-
 field_tool = Field(
     density_charges = density_charges,
     depletion_width = x_n-x_p,
     acceptor_density = acceptor_density,
-    donor_density = density_norm #заменил на нормировочные парамтры
+    donor_density = donor_density
 )
 
 
@@ -100,13 +66,6 @@ field = np.array(field_tool.proceed(step=step, indexes=[[-2e-6, x_p], [x_n, 2e-6
 
 
 print('field has  gave result')
-
-
-
-
-# Нормирование электрического поля диффузии
-field = field/np.max(field)
-
 
 
 delta_refractive_tool = DeltaRefractive(
@@ -124,32 +83,20 @@ print('delta refractive tool has gave result')
 effective_index_tool = EffectiveIndex(
     field = field,
     delta_refractive = delta_refractive,
-    accuracy = 10,  # опционально 10
-    boundary = int((2e-6 - x_n)/step)
+    accuracy =  100,  # опционально 10
+    step = step
 )
 
-effective_index_result = effective_index_tool.proceed()
+effective_index_result = np.array(effective_index_tool.proceed())
 
 print('effective index tool has  gave result')
 
 y = []
+x = []
 
-effective_index_result_discrete = []
-x_i = []
-
-for i in range(len(effective_index_result[1])-1):
-    effective_index_result_discrete.append(effective_index_result[1][i+1] + effective_index_result[1][i])
-    x_i.append(effective_index_result[0][i+1] + effective_index_result[0][i])
+N = len(effective_index_result[0])
 
 
-effective_index_result_discrete = 0.5*np.array(effective_index_result_discrete)
-effective_index_result_discrete = effective_index_result_discrete/np.max(effective_index_result_discrete)
-
-x_i_discrete = 0.5*step*np.array(x_i)
-
-
-
-N = len(x_i_discrete)
 
 for i in range(N):
 
@@ -161,9 +108,44 @@ for i in range(N):
 
 
 
-colors = plt.cm.viridis(effective_index_result_discrete)
+colors = plt.cm.viridis(effective_index_result[1]/np.max(effective_index_result[1]))
+
 plt.title('Распределение эффективного показателя преломления')
-plt.bar(x_i_discrete, y, width=10*step, color = colors)
+bars = plt.bar(effective_index_result[0], y, width=100*step, color = colors)
+
+plt.xlabel('x')
+plt.ylabel('y')
+
 plt.ylim(0, np.max(y)*1.1)
 
+cbar = plt.colorbar(plt.cm.ScalarMappable(cmap=plt.cm.viridis), ax=plt.gca())
+cbar.set_label('Нормированное значение показателя преломления')
+
+
 plt.show()
+
+
+
+# Локализованное распределение
+# colors = plt.cm.viridis(effective_index_result[1][4900:5002] / np.max(effective_index_result[1][4900:5002]))
+# plt.title('Распределение эффективного показателя преломления (область обеднения)')
+# bars = plt.bar(effective_index_result[0][4900:5002], y[4900:5002], width=100*step, color=colors)
+#
+# plt.xlabel('x')
+# plt.ylabel('y')
+#
+# plt.ylim(0, np.max(y)*1.1)
+#
+# # Добавление шкалы цветов с использованием цветовой карты
+# cbar = plt.colorbar(plt.cm.ScalarMappable(cmap=plt.cm.viridis), ax=plt.gca())
+# cbar.set_label('Нормированное значение показателя преломления')
+#
+# plt.show()
+#
+
+
+# 4900
+# 5002
+
+
+

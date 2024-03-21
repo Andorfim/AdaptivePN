@@ -12,6 +12,7 @@ Davies, R. L., & Gentry, F. E. (1964). Control of electric field at the surface 
 import numpy as np
 from scipy.constants import Boltzmann, elementary_charge
 
+
 class DensityCharges:
 
     def __init__(self, indexes: list, intrinsic_density: float, temperature: float, acceptor_density, donor_density, applied_voltage):
@@ -57,9 +58,10 @@ class DensityCharges:
         # b = -8.5e-18
 
 
+
         for x_i in x:
 
-            if x_i >= self.indexes[0][0] and x_i <= self.indexes[0][1]:
+            if x_i >= self.indexes[0][0] and x_i < self.indexes[0][1]:
 
                 electrons = ((square / self.acceptor_density)*
                      (1 + k*(1 - (self.indexes[0][1] - x_i)/(self.indexes[0][1] - self.indexes[0][0]))))
@@ -71,19 +73,11 @@ class DensityCharges:
 
                 density_charge.append(
 
-                    self.donor_density - self.acceptor_density + holes - electrons
+                    0
 
                 )
 
                 # density_charge.append(a * electrons + b * (holes**0.8))
-
-            elif x_i > self.indexes[0][1] and x_i < self.indexes[1][0]:
-
-                electrons_list.append(0)
-                holes_list.append(0)
-
-
-                density_charge.append(0)
 
             elif x_i > self.indexes[1][0] and x_i <= self.indexes[1][1]:
 
@@ -94,15 +88,30 @@ class DensityCharges:
 
                 density_charge.append(
 
-                    self.donor_density - self.acceptor_density + holes - electrons
+                    0
                 )
 
                 electrons_list.append(electrons)
                 holes_list.append(holes)
 
+            elif x_i >= self.indexes[0][1] and x_i <= 0:
+
+                density_charge.append(
+                    -1*self.acceptor_density*(x_i + self.indexes[0][1]) #TODO хзхзхзхзхзхзхзх
+                )
+
+                electrons_list.append(0)
+                holes_list.append(0)
 
 
+            elif x_i > 0 and x_i <= self.indexes[1][0]:
 
+                density_charge.append(
+                    -1*self.donor_density*(x_i - self.indexes[1][0])
+                )
+
+                electrons_list.append(0)
+                holes_list.append(0)
 
         return [density_charge, electrons_list, holes_list]
 

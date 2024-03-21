@@ -27,5 +27,4 @@ class DeltaRefractive:
 
 
 
-        return (self.wavelength**2)*((-1*3.64e-10)*np.array(self.electrons) - (3.51e-6)*(np.array(self.holes))**0.8)
-
+        return (-8.8e-22)*np.array(self.electrons) - (8.5e-18)*(np.array(self.holes))**0.8

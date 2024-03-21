@@ -47,6 +47,7 @@ class DepletionZone:
 
 
 
+
         #relative permittivity = 3.9 для кремния
 
 
