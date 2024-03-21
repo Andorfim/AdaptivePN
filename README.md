@@ -1,14 +1,14 @@
 # AdaptivePN
 
+Распределение эффективного показателя преломления в сечении PN-фазовращателе (прикладное напряжение: 1e-4 V, acceptor density = 6e15 1/m^3, donor density = 2.5e7 1/m^3, оксид кремния)
+
+Neff_max = 3.48
+![effective_index_pn_new](https://github.com/Andorfim/AdaptivePN/assets/41545117/45e2d6c2-a949-45ac-93e3-57b20cb9dd7e)
 
 
-![Diffusion_field](https://github.com/Andorfim/AdaptivePN/assets/41545117/6199562a-4aeb-476a-a050-0a4a6805b3a5)
 
 
-Распределение эффективного показателя преломления в сечении PN-фазовращателе (прикладное напряжение: 0.656 V, acceptor density = 1e21 1/m^3, donor density = 1e22 1/m^3, оксид кремния)
 
-Neff_max = 3.8
-Neff_min = 0
+Распределение эффективного показателя преломления в области обеднения
 
-
-![effective_index](https://github.com/Andorfim/AdaptivePN/assets/41545117/2a3c158e-59b7-48ba-9536-7ac7639b39bd)
+![effective_index_new](https://github.com/Andorfim/AdaptivePN/assets/41545117/0c9e4eb7-f7d9-41b9-94b7-fb6e3f3cdd5f)
