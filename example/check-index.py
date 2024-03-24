@@ -83,7 +83,7 @@ print('delta refractive tool has gave result')
 effective_index_tool = EffectiveIndex(
     field = field,
     delta_refractive = delta_refractive,
-    accuracy =  100,  # опционально 10
+    accuracy = 5,  # опционально 10
     step = step
 )
 
@@ -111,7 +111,7 @@ for i in range(N):
 colors = plt.cm.viridis(effective_index_result[1]/np.max(effective_index_result[1]))
 
 plt.title('Распределение эффективного показателя преломления')
-bars = plt.bar(effective_index_result[0], y, width=100*step, color = colors)
+bars = plt.bar(effective_index_result[0], y, width=5*step, color = colors)
 
 plt.xlabel('x')
 plt.ylabel('y')
@@ -129,7 +129,7 @@ plt.show()
 # Локализованное распределение
 # colors = plt.cm.viridis(effective_index_result[1][4900:5002] / np.max(effective_index_result[1][4900:5002]))
 # plt.title('Распределение эффективного показателя преломления (область обеднения)')
-# bars = plt.bar(effective_index_result[0][4900:5002], y[4900:5002], width=100*step, color=colors)
+# bars = plt.bar(effective_index_result[0][4900:5002], y[4900:5002], width=5*step, color=colors)
 #
 # plt.xlabel('x')
 # plt.ylabel('y')
@@ -141,7 +141,7 @@ plt.show()
 # cbar.set_label('Нормированное значение показателя преломления')
 #
 # plt.show()
-#
+
 
 
 # 4900

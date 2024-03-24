@@ -5,7 +5,7 @@
 
 Основано на Silicon Photonics Design
 Davies, R. L., & Gentry, F. E. (1964). Control of electric field at the surface of P-N junctions. IEEE Transactions on Electron Devices, 11(7), 313–323. doi:10.1109/t-ed.1964.15335
-#TODO (тоже ссылаются, потом исправлю)
+#Kazanori Shioda; Toshiharu Oobu; Kenji Kijima (2002). Numerical simulation of thermal runaway phenomena in silicon semiconductor devices. , 31(6), 438–455.         doi:10.1002/htj.10044 
 
 
 """
@@ -97,7 +97,7 @@ class DensityCharges:
             elif x_i >= self.indexes[0][1] and x_i <= 0:
 
                 density_charge.append(
-                    -1*self.acceptor_density*(x_i + self.indexes[0][1]) #TODO хзхзхзхзхзхзхзх
+                    -1*self.acceptor_density*(x_i + self.indexes[0][1])
                 )
 
                 electrons_list.append(0)

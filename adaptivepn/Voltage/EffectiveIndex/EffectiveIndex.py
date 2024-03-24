@@ -69,8 +69,8 @@ class EffectiveIndex:
                 )
 
             else:
-                effective_index.append(3.48)
+                effective_index.append(3.48 + np.sum(delta_refractive)/len(delta_refractive))
 
-            x_plot.append(i*self.step*self.accuracy/2)
+            x_plot.append(i*self.step)
 
         return [x_plot, effective_index]
