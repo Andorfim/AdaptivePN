@@ -4,7 +4,8 @@
 
 
 
-![pn_all](https://github.com/Andorfim/AdaptivePN/assets/41545117/b96f6c83-e97c-4862-9ee3-5129cfc7a5d2)
+![All-PN](https://github.com/Andorfim/AdaptivePN/assets/41545117/26a8b77b-4bb3-452d-96fb-f401a8e427fe)
+
 
 
 
@@ -14,4 +15,5 @@
 
 
 
-![pn_local](https://github.com/Andorfim/AdaptivePN/assets/41545117/384dad39-4a48-4ddd-936c-0d1071c268b2)
+
+![Local-PN](https://github.com/Andorfim/AdaptivePN/assets/41545117/ef418b98-fa41-440c-a4b0-4f16a835d85e)
