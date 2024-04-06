@@ -79,7 +79,7 @@ class DensityCharges:
 
                 # density_charge.append(a * electrons + b * (holes**0.8))
 
-            elif x_i > self.indexes[1][0] and x_i <= self.indexes[1][1]:
+            elif x_i >= self.indexes[1][0] and x_i <= self.indexes[1][1]:
 
                 electrons = self.donor_density
                 holes = (square/self.donor_density) * (1 + k*(1 - (x_i - self.indexes[1][0]) /(self.indexes[0][0] - self.indexes[0][1])))
@@ -97,22 +97,20 @@ class DensityCharges:
             elif x_i >= self.indexes[0][1] and x_i <= 0:
 
                 density_charge.append(
-                    -1*self.acceptor_density*(x_i + self.indexes[0][1])
+                    self.acceptor_density*(x_i + self.indexes[0][1])
                 )
 
                 electrons_list.append(0)
                 holes_list.append(0)
 
 
-            elif x_i > 0 and x_i <= self.indexes[1][0]:
+            elif x_i > 0 and x_i < self.indexes[1][0]:
 
                 density_charge.append(
-                    -1*self.donor_density*(x_i - self.indexes[1][0])
+                    self.donor_density*(x_i - self.indexes[1][0])
                 )
 
                 electrons_list.append(0)
                 holes_list.append(0)
 
         return [density_charge, electrons_list, holes_list]
-
-

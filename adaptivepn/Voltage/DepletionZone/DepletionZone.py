@@ -14,7 +14,7 @@ from scipy.constants import physical_constants, Boltzmann, elementary_charge, ep
 
 class DepletionZone:
 
-    def __init__(self, temperature, applied_voltage, acceptor_density, donor_density, intrinsic_density):
+    def __init__(self, temperature, applied_voltage, acceptor_density, donor_density, intrinsic_density, pn_offset):
         '''
 
         :param temperature: Температура среды
@@ -32,30 +32,28 @@ class DepletionZone:
         self.donor_density = donor_density
         self.temperature = temperature
         self.intrinsic_density = intrinsic_density
+        self.pn_offset = pn_offset
 
 
+    @property
     def proceed(self):
 
         def x_p(depletion_width):
-            return -1*depletion_width/(1 + self.acceptor_density/self.donor_density)
+            return self.pn_offset - 1*depletion_width/(1 + self.acceptor_density/self.donor_density)
 
         def x_n(depletion_width):
-            return depletion_width / (1 + self.donor_density / self.acceptor_density)
+            return self.pn_offset + depletion_width / (1 + self.donor_density / self.acceptor_density)
 
 
-        built_in_junction_voltage = (Boltzmann*self.temperature/elementary_charge)*np.log(((self.donor_density*self.acceptor_density)/(self.intrinsic_density**2)))
+        built_in_junction_voltage = (Boltzmann*self.temperature/elementary_charge)*np.log((self.donor_density*self.acceptor_density)/(self.intrinsic_density**2))
 
 
 
 
-        #relative permittivity = 3.9 для кремния
+        #relative permittivity = 11.8 для кремния
 
 
-        depletion_width = np.sqrt((2 * 3.9 * epsilon_0 ) * (
-                        self.applied_voltage - built_in_junction_voltage) * (self.donor_density + self.acceptor_density)/(
-                self.donor_density*self.acceptor_density
-            ))
-
+        depletion_width = np.sqrt((2 * 11.8 * (built_in_junction_voltage - self.applied_voltage) * epsilon_0 * (self.acceptor_density + self.donor_density))/(elementary_charge*self.acceptor_density*self.donor_density))
 
         return [x_p(depletion_width), x_n(depletion_width)]
 

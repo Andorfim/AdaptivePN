@@ -14,7 +14,7 @@ from scipy.constants import elementary_charge, epsilon_0, Boltzmann
 
 class Field:
 
-    def __init__(self, density_charges: list, depletion_width: float, acceptor_density: float, donor_density):
+    def __init__(self, density_charges: list, acceptor_density: float, donor_density):
         '''
 
         :param density_charge:
@@ -22,44 +22,34 @@ class Field:
         '''
 
         self.density_charges = density_charges
-        self.depletion_width = depletion_width
         self.acceptor_density = acceptor_density
         self.donor_density = donor_density
 
-    def proceed(self, step: float, indexes, lip: float):
-
-        x_p_i = (lip + indexes[0][1] + step/2)/step
-        x_n_i = (lip + indexes[1][0] + step/2)/step
-
-        x_0 = (lip + step/2)/step
+    def proceed(self, indexes, lip: float):
 
 
         field_list = []
 
+        x_p_i = (-0.5*indexes[0][1]/lip)*len(self.acceptor_density)
+        x_n_i = (0.5*indexes[1][0]/lip)*len(self.acceptor_density)
 
+        for i in range(len(self.acceptor_density)):
 
-
-        for i in range(len(self.density_charges)-1):
-
-            if i < x_p_i or i > x_n_i:
-
-                field_list.append(
-                    0
-                )
-
-            elif (i >= x_p_i) and (i <= x_n_i):
+            if (i >= x_p_i) and (i <= x_n_i) and self.density_charges[i] != 0:
 
                 field_list.append(
                     (elementary_charge/(epsilon_0))*self.density_charges[i]
                 )
 
+            else:
 
-
-
+                field_list.append(
+                    1
+                )
 
         # Проверить правило Симпсона
 
-        return field_list
+        return np.array(field_list)
 
 
 

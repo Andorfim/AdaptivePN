@@ -43,7 +43,7 @@ depletion_tool = DepletionZone(
     temperature = temperature, intrinsic_density = intrinsic_density
 )
 
-x_p, x_n = depletion_tool.proceed()
+x_p, x_n = depletion_tool.proceed
 
 density_charges_tool = DensityCharges(
     indexes=[[-2e-6, x_p], [x_n, 2e-6]],
