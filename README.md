@@ -1,6 +1,7 @@
 # AdaptivePN
 
-![Figure_delta_voltage](https://github.com/Andorfim/AdaptivePN/assets/41545117/ec5eb27d-129c-4c9e-af7f-c36febc2d330)
+![effective_index_bag](https://github.com/Andorfim/AdaptivePN/assets/41545117/e0126831-9ff3-43cf-a9ae-138f97e07bda)
+
 
 
 ![Figure_delta_n(e, h)](https://github.com/Andorfim/AdaptivePN/assets/41545117/299d5f66-3d3d-477d-bbf5-9deaaa3e45c7)
