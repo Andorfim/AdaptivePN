@@ -1,7 +1,3 @@
-import numpy as np
+from scipy.constants import physical_constants, Boltzmann, elementary_charge, epsilon_0
 
-
-x = [1, 2, 3 ]
-
-
-print(sum(np.exp(x)))
+print(epsilon_0)

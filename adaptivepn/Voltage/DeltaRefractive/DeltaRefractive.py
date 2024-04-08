@@ -26,4 +26,4 @@ class DeltaRefractive:
     def proceed(self):
 
 
-        return np.array([(-8.8e-22)*np.array(self.electrons), (-8.5e-18)*(np.array(self.holes))**0.8])
+        return (1e-6)*(self.wavelength**2)*np.array([(-3.64e-10)*np.array(self.electrons), (-3.51e-6)*((np.array(self.holes))**0.8)])
