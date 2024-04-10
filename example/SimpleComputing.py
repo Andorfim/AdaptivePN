@@ -14,27 +14,28 @@ import numpy as np
 # Инициализирую необходимые параметры
 N = 50000 # Количество точек
 
-x = np.linspace(-1e-6, 1e-6, N)
+x = np.linspace(-1e-6, 1e-6, N) #Задаем одномерную сетку для крайних точек соединения
 step = (np.max(x)-np.min(x))/(N-1)
 
 temperature = 25+273.15 # В Кельвинах
-intrinsic_density = 8.3e15
+intrinsic_density = 8.3e15 # Концентрация частиц в валентной зоне
 
 
+# Списки концентраций дырок и доноров
 acceptor_density = [1e23, 5e23, 1e24]
 donor_density = [1e23, 5e23, 1e24]
 
-
+# Приложенное напряжение для обратного смещения (Меньше нуля!)
 applied_voltage = np.linspace(-5, 0, 500)
 pn_offset = 0
 
+# Параметры Гауссова Пучка
+wavelength = 1550e-9 #Длина волны
+amplitude = 6e7 #Амплитуда
+radius = 250e-9 #Радиус Гауссовского пучка по уровню интенсивности 1/exp(2) от амплитуды
+height = 125e-9 #Высота волновода
 
-wavelength = 1550e-9
-amplitude = 6e7
-radius = 250e-9
-height = 125e-9
-
-index_before = 3.48
+index_before = 3.48 #Показатель преломления материала до допирования и подключения напряжения
 
 data = []
 
