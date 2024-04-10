@@ -11,15 +11,14 @@ import matplotlib.pyplot as plt
 
 # Инициализирую необходимые параметры
 N = 50000 # Количество точек
-#TODO проблема с подгоном, так как шаг выше чем координата границы зоны истощения
 
 x = np.linspace(-1e-6, 1e-6, N)
 step = (np.max(x)-np.min(x))/(N-1)
 
 temperature = 25+273.15 # В Кельвинах
 intrinsic_density = 8.3e15
-acceptor_density = 5e23
-donor_density = 5e23
+acceptor_density = 1e24
+donor_density = 1e24
 applied_voltage = np.linspace(-5, 0, 500)
 pn_offset = 0
 
@@ -96,11 +95,11 @@ for applied_voltage_i in applied_voltage:
 
 # phase = (effective_index_by_voltage - effective_index_by_voltage[len(effective_index_by_voltage)-1])*0.02*57.3/1550e-6
 
-plt.title('Change phase shift by voltage')
+plt.title('Change phase shift by voltage (Doping 5e17 cm^-3)')
 plt.xlabel('Voltage')
 plt.ylabel('Phase shift grad/mm')
 plt.xlim(-5, 0)
-plt.ylim(0, 65)
+plt.ylim(0, 100)
 plt.plot(applied_voltage_clear, (effective_index_by_voltage - effective_index_by_voltage[len(effective_index_by_voltage)-1])*0.2*57.3/(1550e-8))
 
 plt.show()
