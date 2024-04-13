@@ -1,3 +1,11 @@
-from scipy.constants import physical_constants, Boltzmann, elementary_charge, epsilon_0
+import numpy as np
+import time
 
-print(epsilon_0)
+start_time = time.time()
+
+a = np.sqrt(np.exp(1))
+
+end_time = time.time()
+
+
+print(end_time - start_time)

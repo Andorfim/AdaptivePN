@@ -21,7 +21,8 @@ class PhaseShift:
     def __init__(self, applied_voltage, temperature,
                  intrinsic_density, acceptor_density,
                  donor_density, pn_offset, x, N, wavelength,
-                 amplitude, radius, height, index_before):
+                 amplitude, radius, index_before, geometry_parameters
+                 ):
 
         # for computing
         self.applied_voltage = applied_voltage
@@ -37,10 +38,13 @@ class PhaseShift:
         # for TE
         self.amplitude = amplitude
         self.radius = radius
-        self.height = height
 
         # for material
         self.index_before = index_before
+
+        # for geometry
+        self.geometry_parameters = geometry_parameters
+
 
     def proceed(self):
 
@@ -89,15 +93,15 @@ class PhaseShift:
                 te_field_tool = TEField(
                     amplitude=self.amplitude,
                     radius=self.radius,
-                    height=self.height
+                    geometry_parameters=self.geometry_parameters
                 )
 
-                iter_xp = int((np.max(x) - self.radius) * self.N / (2 * np.max(x)))
-                iter_xn = int((np.max(x) + self.radius) * self.N / (2 * np.max(x)))
+                iter_xp = int((np.max(x) - 2*self.radius) * self.N / (2 * np.max(x)))
+                iter_xn = int((np.max(x) + 2*self.radius) * self.N / (2 * np.max(x)))
 
                 quantity_dots_for_te = iter_xn - iter_xp + 1
 
-                x = np.linspace(-1 * self.radius, self.radius, quantity_dots_for_te)
+                x = np.linspace(-2 * self.radius, 2*self.radius, quantity_dots_for_te)
 
                 te_field_result = te_field_tool.proceed(x=x)
 
