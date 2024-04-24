@@ -1,5 +1,7 @@
 # AdaptivePN
 
+![DiagramEIM](https://github.com/Andorfim/AdaptivePN/assets/41545117/8e8cdb85-96ae-4ab4-af10-22dd54b92faa)
+
 
 ![Figure_2radius](https://github.com/Andorfim/AdaptivePN/assets/41545117/681e5c2a-0c01-458a-b348-814808e890ac)
 Время компиляции кода: 404.627 секунд
