@@ -1,6 +1,7 @@
 # AdaptivePN
 
-![DiagramEIM-2](https://github.com/Andorfim/AdaptivePN/assets/41545117/d623b572-abd8-4119-b47a-f7d0e25e1cf5)
+        ![DiagramEIM-3](https://github.com/Andorfim/AdaptivePN/assets/41545117/6ddc23fd-8710-4b4f-98b4-1fdb7f16fbec)
+
 
 
 
