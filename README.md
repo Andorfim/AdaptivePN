@@ -2,11 +2,8 @@
 
 
 <p align="center">
-  <img src="https://github.com/Andorfim/AdaptivePN/assets/41545117/ccba8042-f37e-4c8a-9aab-6936001f5c19">
+  <img src="https://github.com/Andorfim/AdaptivePN/assets/41545117/9701b1d5-068c-4190-85dc-969c8ef0d575">
 </p>
-
-
-
 
 
 
